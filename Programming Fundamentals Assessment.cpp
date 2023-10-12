@@ -4,9 +4,14 @@
 #include <iostream>
 using namespace std;
 
-int main()
+int main() //TEXT FIGHT
 {
-    cout << "Hello World!\n";
+    cout << " _______   ______\n";
+    cout << "|__   __| |  ____|\n";
+    cout << "   | |    | |____\n";
+    cout << "   | |    |  ____|\n";
+    cout << "   | |    | |____\n";
+    cout << "   |_|    |______|\n";
 }
 
 
