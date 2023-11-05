@@ -7,6 +7,7 @@
 using namespace std;
 
 void textBoxGenerator(string& textForTextBox);
+int CheckIfValid();
 
 int main() //TEXT FIGHT
 {
@@ -165,7 +166,7 @@ int main() //TEXT FIGHT
 
     } while (isGuessCorrect == false);*/
 
-    string characterClass[5] = {};
+    /*string characterClass[5] = {};
     characterClass[0] = "Monk";
     characterClass[1] = "Swordsman";
     characterClass[2] = "Archer";
@@ -224,8 +225,90 @@ int main() //TEXT FIGHT
     cin.ignore();
     getline(cin, player1.playerName);
     
-    cout << endl << "Player details:" << endl << "- " << "Name: " << player1.playerName << endl << "- " << "Class: " << player1.playerClass << endl;
+    cout << endl << "Player details:" << endl << "- " << "Name: " << player1.playerName << endl << "- " << "Class: " << player1.playerClass << endl;*/
 
+    int inventorySize;
+    bool exit = false;
+    string playerCommand = "";
+
+    cout << "Please enter an inventory size: ";
+
+    inventorySize = CheckIfValid();
+
+    cout << "Initialized inventory with " << inventorySize << " slots" << endl;
+
+    string *inventory = new string[inventorySize];
+
+    string item[5] = {};
+    item[0] = "Empty";
+    item[1] = "Sword";
+    item[2] = "Shield";
+    item[3] = "Health potion";
+    item[4] = "Mana potion";
+
+    for (int i = 0; i <= inventorySize; i++)
+    {
+        inventory[i - 1] = item[0];
+    }
+
+    cin.ignore();
+
+    while (exit == false)
+    {
+        cout << endl << "> ";
+        getline(cin, playerCommand);
+
+        if (playerCommand == "items")
+        {
+            cout << endl << "> items:" << endl;
+
+            for (int i = 0; i < 5; i++)
+            {
+                cout << "- " << i << ": " << item[i] << endl;
+            }
+        }
+        else if (playerCommand == "show_all")
+        {
+            cout << endl << "> inventory:" << endl;
+            for (int i = 0; i < inventorySize; i++)
+            {
+                cout << "- Slot " << i << ": " << inventory[i] << endl;
+            }
+        }
+        else if (playerCommand == "exit")
+        {
+            exit = true;
+        }
+        else
+        {
+            cout << endl << "Please enter a valid command" << endl;
+        }
+    }
+}
+
+int CheckIfValid()
+{
+    string inventorySizeTemp = "";
+    int inventorySize;
+
+    for (int i = 0; i != 1;)
+    {
+        i++;
+
+        cin >> inventorySizeTemp;
+
+        try
+        {
+            inventorySize = stoi(inventorySizeTemp);
+        }
+        catch (...)
+        {
+            cout << "Please enter a valid number ";
+            i--;
+        }
+    }
+
+    return inventorySize;
 }
 
 /*void textBoxGenerator(string& textForTextBox)
