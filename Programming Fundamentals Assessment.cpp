@@ -111,7 +111,7 @@ int main() //TEXT FIGHT
         }
     }*/
 
-    int guess = 0;
+    /*int guess = 0;
     int randNum = random(1, 100);
     int guessCounter = 0;
     bool isGuessCorrect = false;
@@ -163,7 +163,69 @@ int main() //TEXT FIGHT
             guessCounter++;
         }
 
-    } while (isGuessCorrect == false);
+    } while (isGuessCorrect == false);*/
+
+    string characterClass[5] = {};
+    characterClass[0] = "Monk";
+    characterClass[1] = "Swordsman";
+    characterClass[2] = "Archer";
+    characterClass[3] = "Wizard";
+    characterClass[4] = "Preist";
+
+    struct Player
+    {
+        string playerName = "";
+        string playerClass = "";
+    };
+
+    Player player1;
+
+    string playersChoice = "";
+
+    cout << "Please choose a character class below: " << endl;
+
+    for (int k = 0; k < 5; k++)
+    {
+        cout << k + 1 << ". " << characterClass[k] << endl;
+    }
+
+    for (int i = 0; i != 1;)
+    {
+        i++;
+
+        cout << endl << ">";
+        cin >> playersChoice;
+
+        try
+        {
+            int playersClassChoice = stoi(playersChoice);
+
+            if (playersClassChoice < 1 || playersClassChoice > 5)
+            {
+                cout << "Please enter a valid number ";
+                i--;
+            }
+        }
+        catch (...)
+        {
+            cout << "Please enter a valid number ";
+            i--;
+        }
+    }
+
+    int playersClassChoice = stoi(playersChoice);
+
+    player1.playerClass = characterClass[playersClassChoice];
+
+    cout << endl << "You have selected the " << player1.playerClass << " character class." << endl;
+
+    cout << endl << "Please enter your name: ";
+
+    cin.ignore();
+    getline(cin, player1.playerName);
+    
+    cout << endl << "Player details:" << endl << "- " << "Name: " << player1.playerName << endl << "- " << "Class: " << player1.playerClass << endl;
+
 }
 
 /*void textBoxGenerator(string& textForTextBox)
