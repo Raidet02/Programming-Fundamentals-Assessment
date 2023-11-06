@@ -230,6 +230,12 @@ int main() //TEXT FIGHT
     int inventorySize;
     bool exit = false;
     string playerCommand = "";
+    string playerCommandTemp = "";
+    int indexValue1 = 0;
+    int indexValue2 = 0;
+    string indexValueS1 = "";
+    string indexValueS2 = "";
+    int validCheck = 0;
 
     cout << "Please enter an inventory size: ";
 
@@ -256,7 +262,12 @@ int main() //TEXT FIGHT
     while (exit == false)
     {
         cout << endl << "> ";
-        getline(cin, playerCommand);
+        getline(cin, playerCommandTemp);
+
+        int end = playerCommandTemp.find(" ");
+        int stringSize = sizeof(playerCommandTemp) / 4;
+        
+        playerCommand = playerCommandTemp.substr(0, end);
 
         if (playerCommand == "items")
         {
@@ -275,13 +286,86 @@ int main() //TEXT FIGHT
                 cout << "- Slot " << i << ": " << inventory[i] << endl;
             }
         }
+        else if (playerCommand == "view")
+        {
+            indexValueS1 = playerCommandTemp.substr(end, stringSize - end);
+            validCheck = 0;
+
+            try
+            {
+                indexValue1 = stoi(indexValueS1);
+            }
+            catch (...)
+            {
+                cout << endl << "Not a proper index" << endl;
+                validCheck = 1;
+            }
+
+            if (validCheck != 1)
+            {
+                indexValue1 = stoi(indexValueS1);
+
+                if (indexValue1 > inventorySize - 1 || indexValue1 < 0)
+                {
+                    cout << "The index value does not exist" << endl;
+                }
+                else
+                {
+                    cout << endl << "> Inventory Slot " << indexValue1 << " information:" << endl << "Name: " << inventory[indexValue1] << endl;
+                }
+            }
+        }
+        else if (playerCommand == "set")
+        {
+
+            indexValueS1 = playerCommandTemp.substr(end, stringSize - end);
+
+            stringSize = sizeof(indexValueS1) / 4;
+            end = indexValueS1.find_last_of(" ");
+            indexValueS2 = indexValueS1.substr(end, stringSize - end);
+
+            validCheck = 0;
+
+            try
+            {
+                indexValue1 = stoi(indexValueS1);
+                indexValue2 = stoi(indexValueS2);
+            }
+            catch (...)
+            {
+                cout << endl << "Not a proper index" << endl;
+                validCheck = 1;
+            }
+            
+            if (validCheck != 1)
+            {
+                indexValue1 = stoi(indexValueS1);
+                indexValue2 = stoi(indexValueS2);
+
+                if ((indexValue1 > inventorySize - 1 || indexValue1 < 0) && (indexValue2 > 4 || indexValue2 < 0))
+                {
+                    cout << "The index value does not exist" << endl;
+                }
+                else
+                {
+                    inventory[indexValue1] = item[indexValue2];
+                }
+            }
+        }
         else if (playerCommand == "exit")
         {
             exit = true;
         }
         else
         {
-            cout << endl << "Please enter a valid command" << endl;
+            if (playerCommand == "Not a proper index")
+            {
+                cout << "The index value does not exist" << endl;
+            }
+            else
+            {
+                cout << endl << "Please enter a valid command" << endl;
+            }
         }
     }
 }
